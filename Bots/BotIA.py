@@ -1,6 +1,6 @@
 from Bots.Bot import Bot
 
-class BotZangado(Bot):
+class BotIA(Bot):
     def __init__(self,nome):
         self.__nome = nome
 

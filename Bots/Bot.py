@@ -5,7 +5,7 @@ import random as r
 
 class Bot(ABC):
 
-    def __init__(nome,):
+    def __init__(self, nome):
         self.nome = nome
         self.comandos = {}
 
@@ -14,20 +14,20 @@ class Bot(ABC):
         pass
 
     #nao esquecer o decorator
-    def nome(nome):
+    def nome(self, nome):
         pass
 
     def mostra_comandos(self):
         pass
 
     @abstractmethod
-    def executa_comando(self,cmd):
+    def executa_comando(self, cmd):
         pass
 
     @abstractmethod
-    def boas_vindas():
+    def boas_vindas(self):
         pass
     
     @abstractmethod
-    def despedida():
+    def despedida(self):
         pass
