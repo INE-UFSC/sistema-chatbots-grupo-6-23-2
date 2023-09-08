@@ -21,7 +21,7 @@ class Bot(ABC):
         pass
 
     @abstractmethod
-    def executa_comando(self, cmd):
+    def executa_comando(self, cmd): # RETORNAR TRUE SE O COMANDO FOR PARA ENCERRAR O CHAT
         pass
 
     @abstractmethod
