@@ -1,28 +1,21 @@
 from Bots.Bot import Bot
 
 class BotIA(Bot):
-    def __init__(self,nome):
-        self.__nome = nome
+    def __init__(self, nome):
+        super().__init__(nome)
+        super().comandos = {1: "Perguntar qualquer coisa.", 2: "Sair"}
 
-    #nao esquecer o decorator
-    def nome(self):
-        pass
-
-    #nao esquecer o decorator
-    def nome(nome):
-        pass
-
-    def apresentacao(self):
-        pass
- 
-    def mostra_comandos(self):
-        pass
-    
     def executa_comando(self,cmd):
-        pass
+        if cmd == 2:
+            return True
+        elif cmd == 1:
+            pergunta = input("Qual é a sua pergunta: ")
+            #conexão com a API de IA
+        else:
+            print("Comando não encontrado")
 
     def boas_vindas(self):
-        pass
+        print(f"Olá eu sou {super().nome} um bot com inteligência artificial! :)")
 
     def despedida(self):
-        pass
+        print(f"Até mais, obrigado pela conversa!")
