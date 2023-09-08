@@ -1,24 +1,31 @@
-##implemente as seguintes classes
-
 from abc import ABC, abstractmethod
-import random as r
 
 class Bot(ABC):
 
     def __init__(self, nome):
-        self.nome = nome
-        self.comandos = {}
+        self.__nome = nome
+        self.__comandos = {}
 
-    #nao esquecer o decorator
+    @property
     def nome(self):
-        pass
+        return self.__nome
 
-    #nao esquecer o decorator
+    @nome.setter
     def nome(self, nome):
-        pass
+        self.__nome = nome
+
+    @property
+    def comandos(self):
+        return self.__comandos
+
+    @comandos.setter
+    def comandos(self, comandos):
+        self.__comandos = comandos
 
     def mostra_comandos(self):
-        pass
+        print("--------- COMANDOS ------------")
+        for i, comando in self.comandos.items():
+            print(f"{i} - {comando}")
 
     @abstractmethod
     def executa_comando(self, cmd): # RETORNAR TRUE SE O COMANDO FOR PARA ENCERRAR O CHAT

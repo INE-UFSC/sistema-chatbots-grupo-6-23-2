@@ -46,9 +46,7 @@ class SistemaChatBot:
         self.bot = self.lista_bots[int(input("ESCOLHA: "))]
 
     def mostra_comandos_bot(self):
-        print("--------- COMANDOS ------------")
-        for i, comando in self.bot.comandos.items():
-            print(f"{i} - {comando}")
+        self.bot.mostra_comandos()
 
     def le_envia_comando(self):
         escolha = input("Comando desejado: ")
