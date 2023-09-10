@@ -14,8 +14,7 @@ class BotApaixonado(Bot):
         super().comandos(comandos_dict)
 
     def executa_comando(self, cmd):
-
-        match (cmd + 1):
+        match cmd:
             case 1:
                 print('Você, é claro! <3')
             case 2:
