@@ -14,20 +14,20 @@ class BotApaixonado(Bot):
         super().comandos(comandos_dict)
 
     def executa_comando(self, cmd):
-        for cmd in range(4):
 
-            if (cmd + 1) == 1:
+        match (cmd + 1):
+            case 1:
                 print('Você, é claro! <3')
-            elif (cmd + 1) == 2:
+            case 2:
                 print('Hora de você me dar uma beijinho *-*')
-            elif (cmd + 1) == 3:
+            case 3:
                 print('O sentido eu não sei, mas eu sei que ela\
                       perde o sentido sem você...')
-            elif (cmd + 1) == 4:
+            case 4:
                 print('Não tem problema, eu sei guardar segredo rsrs')
-            elif (cmd + 1) == 5:
+            case 5:
                 return True
-            else:
+            case _:
                 print('Estava distraído demais com sua beleza e não\
                       entendi. Pode repetir?')
 
