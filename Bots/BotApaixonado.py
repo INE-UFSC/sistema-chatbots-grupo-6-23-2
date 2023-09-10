@@ -13,6 +13,9 @@ class BotApaixonado(Bot):
             }
         super().comandos = comandos_dict
 
+    def apresentacao(self):
+        return f'Oiii, tudo bem? Eu sou o {super().nome}'
+        
     def executa_comando(self, cmd):
         match cmd:
             case 1:
@@ -31,7 +34,7 @@ class BotApaixonado(Bot):
                       entendi. Pode repetir?')
 
     def boas_vindas(self):
-        return 'Oi, chuchu rsrs. Você vem sempre por aqui?'
+        print('Oi, chuchu rsrs. Você vem sempre por aqui?')
 
     def despedida(self):
-        return "Tchau... vou sentir saudades :'("
+        print("Tchau... vou sentir saudades :'(")
