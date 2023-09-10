@@ -1,9 +1,11 @@
 from Bots.Bot import Bot
 
 class SistemaChatBot:
-    def __init__(self,nomeEmpresa,lista_bots):
-        self.__empresa=nomeEmpresa
+
+    def __init__(self, nomeEmpresa, lista_bots):
+        self.__empresa = nomeEmpresa
         self.__lista_bots = []
+
         for obj in lista_bots:
             if isinstance(obj, Bot):
                 self.__lista_bots.append(obj)
@@ -57,6 +59,7 @@ class SistemaChatBot:
         self.mostra_menu() ##mostra o menu ao usuário
         self.escolhe_bot() ##escolha do bot      
         self.bot.boas_vindas() ##mostra mensagens de boas-vindas do bot escolhido
+
         while(True): #entra no loop de mostrar comandos do bot e escolher comando do bot até o usuário definir a saída
             self.mostra_comandos_bot()
             if self.le_envia_comando() == True:

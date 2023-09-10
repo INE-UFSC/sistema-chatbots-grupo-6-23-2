@@ -15,7 +15,7 @@ class BotIA(Bot):
             print("Comando não encontrado")
 
     def boas_vindas(self):
-        print(f"Olá eu sou {super().nome} um bot com inteligência artificial! :)")
+        print(f"Olá, eu sou {super().nome}, um bot com inteligência artificial! :)")
 
     def despedida(self):
         print(f"Até mais, obrigado pela conversa!")
