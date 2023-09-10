@@ -11,7 +11,7 @@ class BotApaixonado(Bot):
             4: 'Eu já sou comprometido(a)',
             5: 'Até logo',
             }
-        super().comandos(comandos_dict)
+        super().comandos = comandos_dict
 
     def executa_comando(self, cmd):
         match cmd:
