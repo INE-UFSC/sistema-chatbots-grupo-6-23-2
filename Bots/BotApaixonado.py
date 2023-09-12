@@ -27,7 +27,7 @@ class BotApaixonado(Bot):
                       perde o sentido sem você...')
             case 4:
                 print('Não tem problema, eu sei guardar segredo rsrs')
-            case 5:
+            case 5 | -1:
                 return True
             case _:
                 print('Estava distraído demais com sua beleza e não\
