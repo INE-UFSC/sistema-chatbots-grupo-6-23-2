@@ -51,8 +51,9 @@ class SistemaChatBot:
         self.bot.mostra_comandos()
 
     def le_envia_comando(self):
-        escolha = input("Comando desejado: ")
-        self.bot.executa_comando(escolha)
+        escolha = int(input("Comando desejado: "))
+        if self.bot.executa_comando(escolha):
+            return True
 
     def inicio(self):
         self.boas_vindas() ##mostra mensagem de boas-vindas do sistema

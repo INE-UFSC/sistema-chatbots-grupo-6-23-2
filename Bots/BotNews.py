@@ -4,14 +4,14 @@ import requests
 class BotNews(Bot):
     def __init__(self, nome):
         super().__init__(nome)
-        super().comandos = {1: "Pergunte notícias por palavras chaves", 2: "Sair"}
+        self.comandos = {1: "Pergunte notícias por palavras chaves", 2: "Sair"}
 
     def executa_comando(self,cmd):
         if cmd == 2:
             return True
         elif cmd == 1:
             palavras = input("Digite as palavras chaves (separada por espaços): ").replace(" ", "+")
-            url = f"https://newsapi.org/v2/everything?language=pt&pageSize=3&q={keyword}&apiKey=e6f66d10a1ac4f669f92e6e447fe58f9"
+            url = f"https://newsapi.org/v2/everything?language=pt&pageSize=3&q={palavras}&apiKey=e6f66d10a1ac4f669f92e6e447fe58f9"
 
             response = requests.get(url).json()
             if response["status"] == "ok":
@@ -28,6 +28,9 @@ class BotNews(Bot):
         else:
             print("Comando não encontrado")
 
+    def apresentacao(self):
+        return 'Oi, sou o BotNews!'
+    
     def boas_vindas(self):
         print(f"Olá, eu sou {super().nome}, um bot de notícias! :)")
 
