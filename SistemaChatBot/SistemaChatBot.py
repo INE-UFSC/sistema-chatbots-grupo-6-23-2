@@ -52,8 +52,10 @@ class SistemaChatBot:
 
     def le_envia_comando(self):
         escolha = int(input("Comando desejado: "))
-        if self.bot.executa_comando(escolha):
+        if escolha == -1:
             return True
+        else:
+            self.bot.executa_comando(escolha)
 
     def inicio(self):
         self.boas_vindas() ##mostra mensagem de boas-vindas do sistema
@@ -63,6 +65,6 @@ class SistemaChatBot:
 
         while(True): #entra no loop de mostrar comandos do bot e escolher comando do bot até o usuário definir a saída
             self.mostra_comandos_bot()
-            if self.le_envia_comando() == True:
+            if self.le_envia_comando():
                 break
         self.bot.despedida() #ao sair mostrar a mensagem de despedida do bot

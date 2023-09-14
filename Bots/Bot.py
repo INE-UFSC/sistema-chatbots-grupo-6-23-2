@@ -25,7 +25,8 @@ class Bot(ABC):
     def mostra_comandos(self):
         print("--------- COMANDOS ------------")
         for i, comando in self.comandos.items():
-            print(f"{i} - {comando}")
+            if i != "default":
+                print(f"{i} - {comando['cmd']}")
 
     @abstractmethod
     def executa_comando(self, cmd): # RETORNAR TRUE SE O COMANDO FOR PARA ENCERRAR O CHAT

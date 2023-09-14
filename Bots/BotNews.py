@@ -4,12 +4,10 @@ import requests
 class BotNews(Bot):
     def __init__(self, nome):
         super().__init__(nome)
-        self.comandos = {1: "Pergunte notícias por palavras chaves", 2: "Sair"}
+        self.comandos = {1: {"cmd": "Pergunte notícias por palavras chaves"}, -1: {"cmd": "Sair"}}
 
     def executa_comando(self,cmd):
-        if cmd == 2:
-            return True
-        elif cmd == 1:
+        if cmd == 1:
             palavras = input("Digite as palavras chaves (separada por espaços): ").replace(" ", "+")
             url = f"https://newsapi.org/v2/everything?language=pt&pageSize=3&q={palavras}&apiKey=e6f66d10a1ac4f669f92e6e447fe58f9"
 
