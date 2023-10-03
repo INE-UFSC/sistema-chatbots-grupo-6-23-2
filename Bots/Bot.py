@@ -1,4 +1,8 @@
 from abc import ABC, abstractmethod
+from Bots.Comando import Comando, ComandoNotFound
+from Bots.ComandoAPI import ComandoAPI
+from Bots.ComandoTexto import ComandoTexto
+
 
 class Bot(ABC):
 
@@ -18,19 +22,29 @@ class Bot(ABC):
     def comandos(self):
         return self.__comandos
 
-    @comandos.setter
-    def comandos(self, comandos):
-        self.__comandos = comandos
-
+    def add_comando(self, comando: Comando):
+        if isinstance(comando, Comando):
+            self.comandos[comando.id] = comando
+    
+    def remove_comando(self, id: int):
+        if id in self.comandos:
+            del self.comandos[id]
+    
     def mostra_comandos(self):
-        print("--------- COMANDOS ------------")
-        for i, comando in self.comandos.items():
-            if i != "default":
-                print(f"{i} - {comando['cmd']}")
+        return self.comandos
 
-    @abstractmethod
-    def executa_comando(self, cmd): # RETORNAR TRUE SE O COMANDO FOR PARA ENCERRAR O CHAT
-        pass
+    def executa_comando(self, cmd: int, *args: str):
+        if cmd in self.comandos:
+            comando = self.comandos[cmd]
+            if isinstance(comando, Comando):
+                if isinstance(comando, ComandoAPI):
+                    return comando.retorno(*args)
+                else:
+                    return comando.retorno()
+            else:
+                raise TypeError("Este tipo de comando não é válido!")
+        else:
+            raise ComandoNotFound(f"O comando {cmd} não está disponível para este bot.")
 
     @abstractmethod
     def boas_vindas(self):
@@ -38,4 +52,8 @@ class Bot(ABC):
     
     @abstractmethod
     def despedida(self):
+        pass
+
+    @abstractmethod
+    def apresentacao(self):
         pass

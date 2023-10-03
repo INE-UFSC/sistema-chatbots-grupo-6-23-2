@@ -5,17 +5,17 @@ import random
 class ComandoTexto(Comando):
     def __init__(self, id: int, mensagem: str) -> None:
         super().__init__(id, mensagem)
-        self.__retornos = []
+        self.__respostas = []
 
-    def add_retorno(self, retorno: str):
-        self.__retornos.append(retorno)
+    def add_resposta(self, retorno: str):
+        self.__respostas.append(retorno)
+        return self
 
-    def remove_retorno(self, index: int):
-        self.__retornos.pop(index)
+    def remove_resposta(self, index: int):
+        self.__respostas.pop(index)
 
-    def get_random_retorno(self):
-        return random.choice(self.__retornos)
+    def get_random_resposta(self):
+        return random.choice(self.__respostas)
     
-    @property
     def retorno(self):
-        return {'resposta': self.get_random_retorno()}
+        return {'resposta': self.get_random_resposta()}
