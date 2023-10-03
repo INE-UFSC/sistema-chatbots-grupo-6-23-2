@@ -1,4 +1,5 @@
 from Bots.Bot import Bot
+import sys
 
 class SistemaChatBot:
 
@@ -45,7 +46,12 @@ class SistemaChatBot:
             print(f"{i} - Bot: {bot.nome} | Mensagem de apresentação: {bot.apresentacao()}")
     
     def escolhe_bot(self):
-        self.bot = self.lista_bots[int(input("ESCOLHA: "))]
+        while True:
+            try:
+                self.bot = self.lista_bots[int(input("ESCOLHA: "))]
+                break 
+            except TypeError:
+                print("Digite um numero", file=sys.stderr)
 
     def mostra_comandos_bot(self):
         self.bot.mostra_comandos()
