@@ -8,8 +8,8 @@ class Comando(ABC):
             self.__retorno = None
 
     @property
-    def mensagem(self, mensagem: str):
-          self.__mensagem = mensagem
+    def mensagem(self):
+          return self.__mensagem
 
     @property
     @abstractclassmethod
