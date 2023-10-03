@@ -1,10 +1,11 @@
-from ABC import abc, abstractmethod
+from abc import ABC, abstractmethod
 import PySimpleGUI as ps
 
 
 class Window(ABC):
 
-    def __init__(self):
+    def __init__(self, controlador):
+        self.__controlador = controlador
         self.__container = []
         self.__window = None
     

@@ -13,7 +13,7 @@ class SistemaChatBot:
         self.__bot = None
     
     def boas_vindas(self):
-        print(f"Seja bem vindo ao Sistema de chatbots da {self.empresa}")
+        return f"Seja bem vindo ao Sistema de chatbots da {self.empresa}"
     
     @property
     def empresa(self):
@@ -40,18 +40,13 @@ class SistemaChatBot:
         if isinstance(bot, Bot):
             self.__bot = bot
 
-    def mostra_menu(self):
-        print("------- ESCOLHA O BOT -------")
-        for i, bot in enumerate(self.lista_bots):
-            print(f"{i} - Bot: {bot.nome} | Mensagem de apresentação: {bot.apresentacao()}")
+    # def mostra_menu(self):
+    #     for i, bot in enumerate(self.lista_bots):
+    #         print(f"{i} - Bot: {bot.nome} | Mensagem de apresentação: {bot.apresentacao()}")
     
-    def escolhe_bot(self):
-        while True:
-            try:
-                self.bot = self.lista_bots[int(input("ESCOLHA: "))]
-                break 
-            except TypeError:
-                print("Digite um numero", file=sys.stderr)
+    def escolhe_bot(self, escolha: str):
+        self.bot = self.lista_bots[int(escolha)]
+       
 
     def mostra_comandos_bot(self):
         self.bot.mostra_comandos()
