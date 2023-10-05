@@ -1,12 +1,10 @@
 #encoding: utf-8
-from SistemaChatBot import SistemaChatBot as scb
+from controlador.controlador import Controlador
 from Bots.BotNews import BotNews
 from Bots.BotApaixonado import BotApaixonado
-from Bots.BotAmigavel import BotAmigavel
-from Bots.BotFitness import BotFitness
 
 ###construa a lista de bots disponíveis aqui
-lista_bots = [BotNews('Bernardo Nogueira'), BotApaixonado('Ricardo Nascimento'), BotAmigavel("Grupo05"), BotFitness("Grupo04")] 
+lista_bots = [BotNews('Bernardo Nogueira'), BotApaixonado('Ricardo Nascimento')] 
+nome_empresa = 'Botland'
 
-sys = scb.SistemaChatBot("BotLand", lista_bots)
-sys.inicio()
+sys = Controlador(nome_empresa, lista_bots)

@@ -46,7 +46,6 @@ class SistemaChatBot:
     
     def escolhe_bot(self, escolha: str):
         self.bot = self.lista_bots[int(escolha)]
-       
 
     def mostra_comandos_bot(self):
         self.bot.mostra_comandos()
