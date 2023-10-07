@@ -1,4 +1,4 @@
-from Comando import Comando
+from Bots.Comando import Comando
 import requests
 
 
@@ -13,7 +13,7 @@ class ComandoAPI(Comando):
         return self.get_news_API(palavras)
 
     def get_news_API(self, palavras: str):
-        url = f"httsg://newsapi.org/v2/everything?language=pt&pageSize=3&q={palavras}&apiKey=e6f66d10a1ac4f669f92e6e447fe58f9"
+        url = f"https://newsapi.org/v2/everything?language=pt&pageSize=3&q={palavras}&apiKey=e6f66d10a1ac4f669f92e6e447fe58f9"
         response = requests.get(url).json()
         if response["status"] == "ok":
             i = 0

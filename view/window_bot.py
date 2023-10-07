@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from window import Window
+from view.window import Window
 from Bots import Bot
 
 
@@ -18,7 +18,7 @@ class WindowBot(Window):
 
         # Uma linha por comando do bot
         for id, comando in self.__bot.comandos.items():
-            comando = [sg.Text(f'{id} - {comando}')]
+            comando = [sg.Text(f'{id} - {comando.mensagem}')]
             self.__container.append(comando)
         
         selecao = [sg.Text('O que deseja dizer ao bot?'), sg.InputText(key='escolha_comando'), sg.Button('Enviar')]

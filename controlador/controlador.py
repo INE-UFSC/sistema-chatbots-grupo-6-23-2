@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
 from SistemaChatBot.SistemaChatBot import SistemaChatBot
+from Bots.BotApaixonado import *
+from Bots.BotNews import *
 from view.window_selecao import WindowSelecao
 from view.window_bot import WindowBot
 
@@ -7,20 +9,25 @@ from view.window_bot import WindowBot
 class Controlador:
 
     # Inicialização de View e de Model
-    def __init__(self, nome_empresa: str, lista_bots: list):
-        self.__sistemacb = SistemaChatBot(nome_empresa, lista_bots)
+    def __init__(self, nome_empresa: str):
+        self.__sistemacb = SistemaChatBot(nome_empresa)
+        self.adicionar_bots()
         self.__view_selecao = WindowSelecao()
-        self.__view_selecao.cria_janela()
+        self.__view_selecao.cria_janela(self.__sistemacb.boas_vindas(), self.__sistemacb.lista_bots)
         self.__janelas_bots = []
 
         # Instanciando uma janela por bot
-        for bot in lista_bots:
+        for bot in self.__sistemacb.lista_bots:
             nova_janela_bot = WindowBot(bot)
             nova_janela_bot.cria_janela()
             self.__janelas_bots.append(nova_janela_bot)
+
+    def adicionar_bots(self):
+        # AQUI TERÁ TAMBÉM A PARTE DE PERSISTÊNCIA FUTURAMENTE
+        self.__sistemacb.add_bot(BotApaixonado("Ricardo Nascimento"))
+        self.__sistemacb.add_bot(BotNews("Bernardo Nogueira"))
     
     def inicio(self) -> None:
-        self.__sistemacb.inicio()
         self.__mostra_selecao()
 
     # Função responsável pela tela de seleção
@@ -35,7 +42,7 @@ class Controlador:
             if evento == 'Escolher':
                 self.__sistemacb.escolhe_bot(valores['escolha'])
                 for janela in self.__janelas_bots:
-                    if janela.bot == self.__sistemacb.bot_escolhido:
+                    if janela.bot == self.__sistemacb.selected_bot:
                         self.__tela_bot(janela)
 
     # Função responsável pela tela do bot selecionado
