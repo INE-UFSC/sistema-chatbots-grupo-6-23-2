@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from Bots.Comando import Comando, ComandoNotFound
 from Bots.ComandoAPI import ComandoAPI
 from Bots.ComandoTexto import ComandoTexto
-
+from Dao.BotDao import BotDao
 
 class Bot(ABC):
 
@@ -57,3 +57,19 @@ class Bot(ABC):
     @abstractmethod
     def apresentacao(self):
         pass
+
+    def to_dict(self):
+        bot_dict = {"nome": self.nome, "comandos": {}}
+        for cmd_id, cmd_obj in self.comandos.items():
+            if isinstance(cmd_obj, ComandoTexto):
+                cmd_dict = {
+                    "id": cmd_obj.id,
+                    "mensagem": cmd_obj.mensagem,
+                    "respostas": cmd_obj.retorno(),
+                }
+                bot_dict["comandos"][cmd_id] = cmd_dict
+        return bot_dict
+    
+    def save_to_json(self, dao: BotDao):
+        bot_dict = self.to_dict()
+        dao.add(self.nome, bot_dict)
