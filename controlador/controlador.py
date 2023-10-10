@@ -14,13 +14,6 @@ class Controlador:
         self.adicionar_bots()
         self.__view_selecao = WindowSelecao()
         self.__view_selecao.cria_janela(self.__sistemacb.boas_vindas(), self.__sistemacb.lista_bots)
-        self.__janelas_bots = []
-
-        # Instanciando uma janela por bot
-        for bot in self.__sistemacb.lista_bots:
-            nova_janela_bot = WindowBot(bot)
-            nova_janela_bot.cria_janela()
-            self.__janelas_bots.append(nova_janela_bot)
 
     def adicionar_bots(self):
         # AQUI TERÁ TAMBÉM A PARTE DE PERSISTÊNCIA FUTURAMENTE
@@ -41,9 +34,9 @@ class Controlador:
 
             if evento == 'Escolher':
                 self.__sistemacb.escolhe_bot(valores['escolha'])
-                for janela in self.__janelas_bots:
-                    if janela.bot == self.__sistemacb.selected_bot:
-                        self.__tela_bot(janela)
+                janela_bot = WindowBot(self.__sistemacb.selected_bot)
+                janela_bot.cria_janela()
+                self.__tela_bot(janela_bot)
 
     # Função responsável pela tela do bot selecionado
     def __tela_bot(self, janela_bot) -> None:
