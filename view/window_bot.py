@@ -7,6 +7,7 @@ class WindowBot(Window):
         super().__init__()
         self.__bot = bot
         self.__resposta_visivel = False  # Inicialmente, a resposta está oculta
+        sg.theme('GreenMono')
 
     # Cria a janela específica do Bot
     def cria_janela(self) -> None:
@@ -27,7 +28,7 @@ class WindowBot(Window):
         resposta = [sg.Multiline('', key='resposta', size=(80, 4), visible=self.__resposta_visivel)]
         self.__container.append(resposta)
 
-        self.window = sg.Window(f'Bot: {self.__bot.nome}', self.__container)
+        self.window = sg.Window(f'Bot: {self.__bot.nome}', self.__container, size=(800, 600))
 
     def mostra_resposta(self, resposta) -> None:
         # Mostra a resposta e ajusta a visibilidade
