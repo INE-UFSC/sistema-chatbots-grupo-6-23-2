@@ -8,9 +8,9 @@ class Dao(ABC):
         try:
             self.__load()
         except FileNotFoundError:
-            self.__dump()
+            self.dump()
 
-    def __dump(self):
+    def dump(self):
         with open(self.datasource, "w") as arquivo:
             json.dump(self.objectCache, arquivo)
     

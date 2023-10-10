@@ -69,7 +69,3 @@ class Bot(ABC):
                 }
                 bot_dict["comandos"][cmd_id] = cmd_dict
         return bot_dict
-    
-    def save_to_json(self, dao: BotDao):
-        bot_dict = self.to_dict()
-        dao.add(self.nome, bot_dict)
