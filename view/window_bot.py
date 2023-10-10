@@ -2,12 +2,11 @@ import PySimpleGUI as sg
 from view.window import Window
 from Bots import Bot
 
-
 class WindowBot(Window):
-
     def __init__(self, bot: Bot):
         super().__init__()
         self.__bot = bot
+        self.__resposta_visivel = False  # Inicialmente, a resposta está oculta
 
     # Cria a janela específica do Bot
     def cria_janela(self) -> None:
@@ -20,19 +19,21 @@ class WindowBot(Window):
         for id, comando in self.__bot.comandos.items():
             comando = [sg.Text(f'{id} - {comando.mensagem}')]
             self.__container.append(comando)
-        
+
         selecao = [sg.Text('O que deseja dizer ao bot?'), sg.InputText(key='escolha_comando'), sg.Button('Enviar')]
         self.__container.append(selecao)
 
-        # Texto da resposta que será atualizado conforme o botão
-        # pressionado
-        resposta = [sg.Text('', key='resposta')]
+        # Texto da resposta é uma Multiline, inicialmente oculta
+        resposta = [sg.Multiline('', key='resposta', size=(80, 4), visible=self.__resposta_visivel)]
         self.__container.append(resposta)
 
         self.window = sg.Window(f'Bot: {self.__bot.nome}', self.__container)
 
-    def mostra_resposta(self, resposta) -> None: 
+    def mostra_resposta(self, resposta) -> None:
+        # Mostra a resposta e ajusta a visibilidade
         self.window.Element('resposta').Update(resposta)
+        self.__resposta_visivel = True
+        self.window.Element('resposta').update(visible=self.__resposta_visivel)
 
     # Retorna os eventos da janela
     def le_eventos(self) -> (sg.Any | tuple[str, sg.Any] | None):
