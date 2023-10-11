@@ -15,8 +15,8 @@ class Dao(ABC):
             json.dump(self.objectCache, arquivo)
     
     def __load(self):
-        with open("datasource.json") as arquivo:
-            self.objectCache = json.load(self.datasource)
+        with open(self.datasource) as arquivo:
+            self.objectCache = json.load(arquivo)
 
     @abstractclassmethod
     def add(self, key, obj):

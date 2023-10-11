@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from Bots.Comando import Comando, ComandoNotFound
 from Bots.ComandoAPI import ComandoAPI
 from Bots.ComandoTexto import ComandoTexto
-from Dao.BotDao import BotDao
 
 class Bot(ABC):
 
@@ -65,7 +64,7 @@ class Bot(ABC):
                 cmd_dict = {
                     "id": cmd_obj.id,
                     "mensagem": cmd_obj.mensagem,
-                    "respostas": cmd_obj.retorno(),
+                    "respostas": cmd_obj.respostas,
                 }
                 bot_dict["comandos"][cmd_id] = cmd_dict
         return bot_dict

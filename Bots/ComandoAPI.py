@@ -1,4 +1,4 @@
-from Comando import Comando
+from Bots.Comando import Comando
 import requests
 
 

@@ -1,4 +1,4 @@
-from Comando import Comando
+from Bots.Comando import Comando
 import random
 
 
@@ -6,6 +6,10 @@ class ComandoTexto(Comando):
     def __init__(self, id: int, mensagem: str) -> None:
         super().__init__(id, mensagem)
         self.__respostas = []
+
+    @property
+    def respostas(self):
+        return self.__respostas
 
     def add_resposta(self, retorno: str):
         self.__respostas.append(retorno)
