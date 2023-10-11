@@ -1,9 +1,10 @@
 import PySimpleGUI as sg
-from SistemaChatBot.SistemaChatBot import SistemaChatBot
+from SistemaChatBot.SistemaChatBot import *
 from Bots.BotApaixonado import *
 from Bots.BotNews import *
 from view.window_selecao import WindowSelecao
 from view.window_bot import WindowBot
+from Bots.Comando import ComandoNotFound
 
 
 class Controlador:
@@ -33,10 +34,13 @@ class Controlador:
                 return
 
             if evento == 'Escolher':
-                self.__sistemacb.escolhe_bot(valores['escolha'])
-                janela_bot = WindowBot(self.__sistemacb.selected_bot)
-                janela_bot.cria_janela()
-                self.__tela_bot(janela_bot)
+                try:
+                    self.__sistemacb.escolhe_bot(valores['escolha'])
+                    janela_bot = WindowBot(self.__sistemacb.selected_bot)
+                    janela_bot.cria_janela()
+                    self.__tela_bot(janela_bot)
+                except InvalidBotError:
+                    self.__view_selecao.error("Bot inválido, por favor digite novamente")                
 
     # Função responsável pela tela do bot selecionado
     def __tela_bot(self, janela_bot) -> None:
@@ -48,6 +52,15 @@ class Controlador:
                 return
 
             if evento == 'Enviar':
-                dict_resposta = self.__sistemacb.le_envia_comando(valores['escolha_comando'])
-                dict_str = "\n".join([f"{key}: {value}" for key, value in dict_resposta.items()])
-                janela_bot.mostra_resposta(dict_str)
+                try:
+                    dict_resposta = self.__sistemacb.le_envia_comando(valores['escolha_comando'])
+                    dict_str = "\n".join([f"{key}: {value}" for key, value in dict_resposta.items()])
+                    janela_bot.mostra_resposta(dict_str)
+                except TypeError as e:
+                    self.__view_selecao.error(e)   
+                except ComandoNotFound as e:
+                    self.__view_selecao.error(e)   
+                    
+
+
+

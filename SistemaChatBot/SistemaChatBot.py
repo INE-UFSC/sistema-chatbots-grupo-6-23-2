@@ -50,11 +50,10 @@ class SistemaChatBot:
             try:
                 cmd = int(cmd)
                 return self.selected_bot.executa_comando(cmd)
-            except TypeError:
+            except ValueError:
                 raise TypeError("O comando para este bot deve ser do tipo numérico!")
 
 class InvalidBotError(KeyError):
-    def __init__(self, comando, message="Bot inválido!"):
-        self.comando = comando
-        self.message = f"{message}: {comando}"
+    def __init__(self, message="Bot inválido!"):
+        self.message = f"{message}"
         super().__init__(self.message)

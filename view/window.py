@@ -27,3 +27,7 @@ class Window(ABC):
     @window.setter
     def window(self, window):
         self.__window = window
+    
+    # Implementar função e mensagem de erro
+    def error(self, mensagem: str):
+        print(mensagem)
