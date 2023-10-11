@@ -7,6 +7,10 @@ class ComandoTexto(Comando):
         super().__init__(id, mensagem)
         self.__respostas = []
 
+    @property
+    def respostas(self):
+        return self.__respostas
+
     def add_resposta(self, retorno: str):
         self.__respostas.append(retorno)
         return self
