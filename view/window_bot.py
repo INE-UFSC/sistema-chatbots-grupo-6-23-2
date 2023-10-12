@@ -12,29 +12,24 @@ class WindowBot(Window):
     # Cria a janela específica do Bot
     def cria_janela(self) -> None:
         self.__container = [
-            [sg.Text(self.__bot.apresentacao(), key='apresentacao')],
-            [sg.Text(f'Seguem abaixo os comandos de {self.__bot.nome}:')]
+            super().cabecalho(f"Bot {self.bot.nome}"),
+            super().message_bot_box(self.bot.apresentacao()),
+            super().message_bot_box("Meus comandos:")
         ]
 
         # Uma linha por comando do bot
+        comandos = ""
         for id, comando in self.__bot.comandos.items():
-            comando = [sg.Text(f'{id} - {comando.mensagem}')]
-            self.__container.append(comando)
+            comandos = f'{comandos}\n{id} - {comando.mensagem}'
 
-        selecao = [sg.Text('O que deseja dizer ao bot?'), sg.InputText(key='escolha_comando'), sg.Button('Enviar')]
-        self.__container.append(selecao)
-
-        # Texto da resposta é uma Multiline, inicialmente oculta
-        resposta = [sg.Multiline('', key='resposta', size=(80, 4), visible=self.__resposta_visivel)]
-        self.__container.append(resposta)
+        coluna_center = super().add_row_center(center_column=None, row=super().message_bot_box(comandos))
+        self.__container.append([coluna_center])
+        self.__container.append(super().input_user())
 
         self.window = sg.Window(f'Bot: {self.__bot.nome}', self.__container, size=(800, 600))
 
     def mostra_resposta(self, resposta) -> None:
-        # Mostra a resposta e ajusta a visibilidade
-        self.window.Element('resposta').Update(resposta)
-        self.__resposta_visivel = True
-        self.window.Element('resposta').update(visible=self.__resposta_visivel)
+        pass
 
     # Retorna os eventos da janela
     def le_eventos(self) -> (sg.Any | tuple[str, sg.Any] | None):

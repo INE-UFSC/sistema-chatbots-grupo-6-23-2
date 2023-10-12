@@ -44,7 +44,7 @@ class SistemaChatBot:
             raise InvalidBotError()
 
     def le_envia_comando(self, cmd: str):
-        if isinstance(self.selected_bot, BotNews):
+        if isinstance(self.selected_bot, BotNews): # Caso seja alterado no futuro para qualquer bot api devemos mudar aqui
             return self.selected_bot.executa_comando(1, *str(cmd).split(" "))
         elif isinstance(self.selected_bot, Bot):
             try:
