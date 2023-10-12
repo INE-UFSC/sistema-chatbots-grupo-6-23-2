@@ -9,7 +9,6 @@ class Window:
     def __init__(self):
         self.__container = []
         self.__window = None
-        self.__bot = None
         sg.theme('GreenMono')
         self.__center_column = []
 
@@ -38,10 +37,6 @@ class Window:
     @property
     def container(self):
         return self.__container
-    
-    @property
-    def bot(self):
-        return self.__bot
 
     # Retorna os eventos da janela
     def le_eventos(self):
