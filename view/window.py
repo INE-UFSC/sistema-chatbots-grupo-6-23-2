@@ -15,6 +15,7 @@ class Window:
 
     def cria_janela(self, boas_vindas: str, lista_bots):
         self.__container = [
+            [sg.Menu([['Add Bot', 'Add Bot']])],
             self._cabecalho(boas_vindas),
             [sg.Column(self.center_column, expand_y=True, key='-COLUMN-', size=(800, 450), vertical_scroll_only=True, scrollable=True)],
             self._input_user_label()

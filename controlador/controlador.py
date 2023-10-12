@@ -2,19 +2,30 @@ import PySimpleGUI as sg
 from SistemaChatBot.SistemaChatBot import *
 from Bots.BotNews import *
 from view.window import Window
+from view.window_fatal_error import WindowFatalError
 from datetime import datetime
 from Bots.Comando import ComandoNotFound
 from Bots.ComandoAPI import APIConnectionError
 from SistemaChatBot.SistemaChatBot import InvalidBotError
+from DAO.BotDao import InvalidJsonBotError
+import sys
 
 
 class Controlador:
 
     # Inicialização de View e de Model
     def __init__(self, nome_empresa: str):
-        self.__sistemacb = SistemaChatBot(nome_empresa)
-        self.__view = Window()
-        self.__view.cria_janela(self.__sistemacb.boas_vindas(), self.__sistemacb.lista_bots)
+        try:
+            self.__view = Window()
+            self.__sistemacb = SistemaChatBot(nome_empresa)
+            self.__view.cria_janela(self.__sistemacb.boas_vindas(), self.__sistemacb.lista_bots)
+        except InvalidJsonBotError as e:
+            self.fatal_error(str(e))
+
+    def fatal_error(self, error: str):
+        view = WindowFatalError(error)
+        view.run()
+        sys.exit()
     
     def inicio(self) -> None:
         bot = self._main()
@@ -50,6 +61,8 @@ class Controlador:
                 self.__sistemacb.deselect_bot()
                 self.__view.add_selecao_bot_component(self.__sistemacb.lista_bots)
                 self.__view.update_scroll()
+            elif evento == 'Add Bot':
+                self.add_new_bot_window()
 
     def _bot_selecionado(self, bot: Bot):
         self.__view.add_message_bot(bot.apresentacao())
@@ -67,4 +80,31 @@ class Controlador:
         else:
             for noticia in resposta.values():
                 self.__view.add_message_bot(f'{noticia["titulo"]} | {datetime.strptime(noticia["data"], "%Y-%m-%dT%H:%M:%SZ").strftime("%d/%m/%Y")}')
-            
+
+    def add_new_bot_window(self):
+        layout = [
+            [sg.Text('Selecione um arquivo JSON:')],
+            [sg.InputText(key='-FILE-', enable_events=True), sg.FileBrowse(file_types=(("JSON Files", "*.json"),))],
+            [sg.Button('OK'), sg.Button('Cancelar')]
+        ]
+        window = sg.Window('Adicionar Bot', layout)
+        
+        while True:
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED or event == 'Cancelar':
+                window.close()
+                return
+            if event == 'OK' and values['-FILE-']:
+                file_path = values['-FILE-']
+                try:
+                    self.__sistemacb.add_bot_file(file_path)
+                    sg.popup("Bots adicionados!")
+                except InvalidJsonBotError as e:
+                    sg.popup(e)
+                except FileNotFoundError:
+                    sg.popup(e)
+                self.__sistemacb.deselect_bot()
+                self.__view.add_selecao_bot_component(self.__sistemacb.lista_bots)
+                self.__view.update_scroll()
+                window.close()
+                return

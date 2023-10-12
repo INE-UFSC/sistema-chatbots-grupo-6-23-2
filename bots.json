@@ -1,5 +1,5 @@
 {
-    "0": {
+    "1": {
         "nome": "Ricardo Nascimento",
         "comandos": {
             "1": {
@@ -48,7 +48,7 @@
             }
         },
         "apresentacao": "Oiii, tudo bem? Eu sou o Ricardo Nascimento",
-        "boas_vindas": null,
-        "despedida": null
+        "boas_vindas": "Bem vindo(a)!",
+        "despedida": "J\u00e1 vai chuchu?"
     }
 }
