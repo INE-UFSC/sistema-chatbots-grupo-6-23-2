@@ -42,9 +42,12 @@ class SistemaChatBot:
             self.__selected_bot = self.lista_bots[int(escolha)]
         except:
             raise InvalidBotError()
+        
+    def deselect_bot(self):
+        self.__selected_bot = None
 
     def le_envia_comando(self, cmd: str):
-        if isinstance(self.selected_bot, BotNews):
+        if isinstance(self.selected_bot, BotNews): # Caso seja alterado no futuro para qualquer bot api devemos mudar aqui
             return self.selected_bot.executa_comando(1, *str(cmd).split(" "))
         elif isinstance(self.selected_bot, Bot):
             try:

@@ -2,37 +2,34 @@ import PySimpleGUI as sg
 from view.window import Window
 from Bots import Bot
 
-
 class WindowBot(Window):
-
     def __init__(self, bot: Bot):
         super().__init__()
         self.__bot = bot
+        self.__resposta_visivel = False  # Inicialmente, a resposta está oculta
+        sg.theme('GreenMono')
 
     # Cria a janela específica do Bot
     def cria_janela(self) -> None:
         self.__container = [
-            [sg.Text(self.__bot.apresentacao(), key='apresentacao')],
-            [sg.Text(f'Seguem abaixo os comandos de {self.__bot.nome}:')]
+            super().cabecalho(f"Bot {self.bot.nome}"),
+            super().message_bot_box(self.bot.apresentacao()),
+            super().message_bot_box("Meus comandos:")
         ]
 
         # Uma linha por comando do bot
+        comandos = ""
         for id, comando in self.__bot.comandos.items():
-            comando = [sg.Text(f'{id} - {comando.mensagem}')]
-            self.__container.append(comando)
-        
-        selecao = [sg.Text('O que deseja dizer ao bot?'), sg.InputText(key='escolha_comando'), sg.Button('Enviar')]
-        self.__container.append(selecao)
+            comandos = f'{comandos}\n{id} - {comando.mensagem}'
 
-        # Texto da resposta que será atualizado conforme o botão
-        # pressionado
-        resposta = [sg.Text('', key='resposta')]
-        self.__container.append(resposta)
+        coluna_center = super().add_row_center(center_column=None, row=super().message_bot_box(comandos))
+        self.__container.append([coluna_center])
+        self.__container.append(super().input_user())
 
-        self.window = sg.Window(f'Bot: {self.__bot.nome}', self.__container)
+        self.window = sg.Window(f'Bot: {self.__bot.nome}', self.__container, size=(800, 600))
 
-    def mostra_resposta(self, resposta) -> None: 
-        self.window.Element('resposta').Update(resposta)
+    def mostra_resposta(self, resposta) -> None:
+        pass
 
     # Retorna os eventos da janela
     def le_eventos(self) -> (sg.Any | tuple[str, sg.Any] | None):

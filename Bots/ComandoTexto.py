@@ -22,4 +22,4 @@ class ComandoTexto(Comando):
         return random.choice(self.__respostas)
     
     def retorno(self):
-        return {'resposta': self.get_random_resposta()}
+        return {'resposta_texto': self.get_random_resposta()}
