@@ -7,10 +7,10 @@ class BotNews(Bot):
         super().add_comando(ComandoAPI(1, "Veja as últimas notícias buscando-as por palavra chave!"))
 
     def apresentacao(self):
-        return 'Oi, sou o BotNews!'
+        return f"Olá, eu sou {super().nome}, um bot de notícias! :)"
     
     def boas_vindas(self):
-        print(f"Olá, eu sou {super().nome}, um bot de notícias! :)")
+        return f"Bem vindo ao meu canal de notícias!"
 
     def despedida(self):
-        print(f"Até mais, obrigado pelo interesse!")
+        return f"Até mais, obrigado pelo interesse!"

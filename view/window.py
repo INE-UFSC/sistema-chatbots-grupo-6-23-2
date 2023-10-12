@@ -20,7 +20,7 @@ class Window:
             [sg.Column(self.center_column, expand_y=True, key='-COLUMN-', size=(800, 450), vertical_scroll_only=True, scrollable=True)],
             self._input_user_label()
         ]
-        self.window = sg.Window(f'Sistema ChatBots', self.__container, size=(800, 600), finalize=True)
+        self.window = sg.Window(f'Sistema ChatBots',  self.__container, size=(800, 600), return_keyboard_events=True, finalize=True)
         self.add_selecao_bot_component(lista_bots)
 
     def add_selecao_bot_component(self, lista_bots):
@@ -105,7 +105,7 @@ class Window:
 
     def _input_user_label(self):
         return [sg.InputText("", tooltip='Digite aqui...', key='input', size=(55, 1), font=('Arial', 16), pad=((0, 0), (20, 0))),
-            sg.Button("Enviar", font=('Arial', 16), pad=((10, 0), (20, 0))), sg.Button("Trocar de bot", key="-SWAP-BUTTON-", visible=False, font=('Arial', 16), pad=((10, 0), (20, 0)))]
+            sg.Button("Enviar", tooltip='Press enter', font=('Arial', 16), pad=((10, 0), (20, 0))), sg.Button("Trocar de bot", key="-SWAP-BUTTON-", tooltip='Press esc', visible=False, font=('Arial', 16), pad=((10, 0), (20, 0)))]
     
     def habilitar_troca_bot(self):
         self.window['input'].set_size((40, 1))

@@ -15,7 +15,6 @@ class BotDao(Dao):
     def get(self, key):
         try:
             bot_dict = self.objectCache.get(str(key))
-            print(self.objectCache)
             bot = BotTexto(bot_dict['nome'], str(bot_dict['apresentacao']), str(bot_dict['boas_vindas']), str(bot_dict['despedida']))
             for comando in bot_dict['comandos'].values():
                 cmd = ComandoTexto(comando['id'], comando['mensagem'])

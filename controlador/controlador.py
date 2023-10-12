@@ -37,6 +37,14 @@ class Controlador:
             if evento == sg.WINDOW_CLOSED:
                 self.__view.fim()
                 return
+            
+            if evento == 'Return:36':
+                self.__view.window['Enviar'].click()
+            elif evento == 'Escape:9':
+                if self.__sistemacb.selected_bot is not None:
+                    self.__view.window['-SWAP-BUTTON-'].click()
+                else:
+                    self.__view.fim()
 
             if evento == 'Enviar':
                 try:
@@ -58,6 +66,7 @@ class Controlador:
 
                 self.__view.update_scroll()
             elif evento == '-SWAP-BUTTON-':
+                self.__view.add_message_bot(self.__sistemacb.selected_bot.despedida())
                 self.__sistemacb.deselect_bot()
                 self.__view.add_selecao_bot_component(self.__sistemacb.lista_bots)
                 self.__view.update_scroll()
@@ -65,6 +74,7 @@ class Controlador:
                 self.add_new_bot_window()
 
     def _bot_selecionado(self, bot: Bot):
+        self.__view.add_message_bot(self.__sistemacb.selected_bot.boas_vindas())
         self.__view.add_message_bot(bot.apresentacao())
         self.__view.add_message_bot("O que eu posso fazer:")
         
