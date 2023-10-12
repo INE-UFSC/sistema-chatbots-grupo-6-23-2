@@ -27,8 +27,6 @@ class Controlador:
         while True:
             evento, valores = self.__view.le_eventos()
 
-            print(evento)
-
             if evento == sg.WINDOW_CLOSED:
                 self.__view.fim()
                 return
@@ -44,6 +42,10 @@ class Controlador:
                     self._bot_responde(dict_resposta)
 
                 self.__view.update_scroll()
+            elif evento == '-SWAP-BUTTON-':
+                self.__sistemacb.deselect_bot()
+                self.__view.add_selecao_bot_component(self.__sistemacb.lista_bots)
+                self.__view.update_scroll()
 
     def _bot_selecionado(self, bot: Bot):
         self.__view.add_message_bot(bot.apresentacao())
@@ -53,6 +55,7 @@ class Controlador:
         for id, comando in bot.comandos.items():
             comandos = f'{comandos}\n{id} - {comando.mensagem}'
         self.__view.add_message_bot(comandos)
+        self.__view.habilitar_troca_bot()
 
     def _bot_responde(self, resposta: dict):
         if len(resposta) > 1: #Lógica implicia (se tiver mais de uma resposta é porque é do tipo botnews) ALTERAR!!

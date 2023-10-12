@@ -11,19 +11,21 @@ class Window:
         self.__bot = None
         sg.theme('GreenMono')
         self.__center_column = []
-        self.__queue_messages = queue.Queue()
 
     def cria_janela(self, boas_vindas: str, lista_bots):
-        self._add_row_center(self._message_bot_box("Por favor, escolha o bot:"), init=True)
-        for i, bot in enumerate(lista_bots):
-            self._add_row_center(self._message_bot_box(f"{i} - Bot: {bot.nome}\nMensagem de apresentação: {bot.apresentacao()}"), init=True)
-
         self.__container = [
             self._cabecalho(boas_vindas),
             [sg.Column(self.center_column, expand_y=True, key='-COLUMN-', size=(800, 450), vertical_scroll_only=True, scrollable=True)],
             self._input_user_label()
         ]
         self.window = sg.Window(f'Sistema ChatBots', self.__container, size=(800, 600), finalize=True)
+        self.add_selecao_bot_component(lista_bots)
+
+    def add_selecao_bot_component(self, lista_bots):
+        self._add_row_center(self._message_bot_box("Por favor, escolha o bot:"))
+        for i, bot in enumerate(lista_bots):
+            self._add_row_center(self._message_bot_box(f"{i} - Bot: {bot.nome}\nMensagem de apresentação: {bot.apresentacao()}"))
+
 
     @property
     def center_column(self):
@@ -91,20 +93,19 @@ class Window:
     def _cabecalho(self, msg: str):
         return [sg.Text(msg, size=(60, 1), font=('Arial', 18), justification='center')]
     
-    def _add_row_center(self, row: list, init=False):
-        if not init:
-            
-            self.center_column.append(row)
-            self.window['-COLUMN-'].contents_changed()
-            self.window.extend_layout(self.window['-COLUMN-'], [row])
-            self.window.refresh()
-            
-        else:
-            self.center_column.append(row)
+    def _add_row_center(self, row: list):
+        self.center_column.append(row)
+        self.window['-COLUMN-'].contents_changed()
+        self.window.extend_layout(self.window['-COLUMN-'], [row])
+        self.window.refresh()
 
     def _input_user_label(self):
         return [sg.InputText("", tooltip='Digite aqui...', key='input', size=(55, 1), font=('Arial', 16), pad=((0, 0), (20, 0))),
-            sg.Button("Enviar", font=('Arial', 16), pad=((10, 0), (20, 0)))]
+            sg.Button("Enviar", font=('Arial', 16), pad=((10, 0), (20, 0))), sg.Button("Trocar de bot", key="-SWAP-BUTTON-", visible=False, font=('Arial', 16), pad=((10, 0), (20, 0)))]
+    
+    def habilitar_troca_bot(self):
+        self.window['input'].set_size((40, 1))
+        self.window["-SWAP-BUTTON-"].update(visible=True)
     
     def add_message_bot(self, message: str, error=False):
         if error:
