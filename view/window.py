@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 from textwrap import wrap
-import time
+import queue
 
 
 class Window:
@@ -11,6 +11,7 @@ class Window:
         self.__bot = None
         sg.theme('GreenMono')
         self.__center_column = []
+        self.__queue_messages = queue.Queue()
 
     def cria_janela(self, boas_vindas: str, lista_bots):
         self._add_row_center(self._message_bot_box("Por favor, escolha o bot:"), init=True)
@@ -19,10 +20,10 @@ class Window:
 
         self.__container = [
             self._cabecalho(boas_vindas),
-            [sg.Column(self.center_column, key='-COLUMN-', pad=((0, 0), (30, 0)), size=(800, 450), vertical_scroll_only=True, scrollable=True)],
+            [sg.Column(self.center_column, expand_y=True, key='-COLUMN-', size=(800, 450), vertical_scroll_only=True, scrollable=True)],
             self._input_user_label()
         ]
-        self.window = sg.Window(f'Sistema ChatBots', self.__container, size=(800, 600))
+        self.window = sg.Window(f'Sistema ChatBots', self.__container, size=(800, 600), finalize=True)
 
     @property
     def center_column(self):
@@ -38,6 +39,7 @@ class Window:
 
     # Retorna os eventos da janela
     def le_eventos(self):
+        self.window.refresh()
         return self.__window.read()
 
     def fim(self):
@@ -95,7 +97,7 @@ class Window:
             self.center_column.append(row)
             self.window['-COLUMN-'].contents_changed()
             self.window.extend_layout(self.window['-COLUMN-'], [row])
-            self.window['-COLUMN-'].contents_changed()
+            self.window.refresh()
             
         else:
             self.center_column.append(row)
@@ -111,5 +113,11 @@ class Window:
             self._add_row_center(self._message_bot_box(message))
 
     def add_input_user(self, input: str):
+        self._add_row_center([sg.VerticalSeparator(color = None, pad = ((0, 0), (10, 10)))])
+        self.window['input'].update("")
         self._add_row_center(self._message_user_box(input))
+
+    def update_scroll(self):
+        self._add_row_center([sg.VerticalSeparator(color = None, pad = ((0, 0), (10, 10)))])
+        self.window['-COLUMN-'].Widget.canvas.yview_moveto(1.0)
 

@@ -1,3 +1,4 @@
+import time
 import PySimpleGUI as sg
 from SistemaChatBot.SistemaChatBot import SistemaChatBot
 from Bots.BotApaixonado import *
@@ -26,6 +27,8 @@ class Controlador:
         while True:
             evento, valores = self.__view.le_eventos()
 
+            print(evento)
+
             if evento == sg.WINDOW_CLOSED:
                 self.__view.fim()
                 return
@@ -40,6 +43,8 @@ class Controlador:
                     dict_resposta = self.__sistemacb.le_envia_comando(valores['input'])
                     self._bot_responde(dict_resposta)
 
+                self.__view.update_scroll()
+
     def _bot_selecionado(self, bot: Bot):
         self.__view.add_message_bot(bot.apresentacao())
         self.__view.add_message_bot("O que eu posso fazer:")
@@ -50,7 +55,7 @@ class Controlador:
         self.__view.add_message_bot(comandos)
 
     def _bot_responde(self, resposta: dict):
-        if len(resposta) > 0: #Lógica implicia (se tiver mais de uma resposta é porque é do tipo botnews) ALTERAR!!
+        if len(resposta) > 1: #Lógica implicia (se tiver mais de uma resposta é porque é do tipo botnews) ALTERAR!!
             self.__view.add_message_bot(resposta[0]['titulo'])
         else:
             self.__view.add_message_bot(resposta["resposta"])
