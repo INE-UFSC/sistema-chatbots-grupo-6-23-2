@@ -56,15 +56,3 @@ class Bot(ABC):
     @abstractmethod
     def apresentacao(self):
         pass
-
-    def to_dict(self):
-        bot_dict = {"nome": self.nome, "comandos": {}}
-        for cmd_id, cmd_obj in self.comandos.items():
-            if isinstance(cmd_obj, ComandoTexto):
-                cmd_dict = {
-                    "id": cmd_obj.id,
-                    "mensagem": cmd_obj.mensagem,
-                    "respostas": cmd_obj.respostas,
-                }
-                bot_dict["comandos"][cmd_id] = cmd_dict
-        return bot_dict

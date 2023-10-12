@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
 from SistemaChatBot.SistemaChatBot import *
-from Bots.BotApaixonado import *
 from Bots.BotNews import *
 from view.window import Window
 from datetime import datetime
@@ -14,14 +13,8 @@ class Controlador:
     # Inicialização de View e de Model
     def __init__(self, nome_empresa: str):
         self.__sistemacb = SistemaChatBot(nome_empresa)
-        self.adicionar_bots()
         self.__view = Window()
         self.__view.cria_janela(self.__sistemacb.boas_vindas(), self.__sistemacb.lista_bots)
-
-    def adicionar_bots(self):
-        # AQUI TERÁ TAMBÉM A PARTE DE PERSISTÊNCIA FUTURAMENTE
-        self.__sistemacb.add_bot(BotApaixonado("Ricardo Nascimento"))
-        self.__sistemacb.add_bot(BotNews("Bernardo Nogueira"))
     
     def inicio(self) -> None:
         bot = self._main()

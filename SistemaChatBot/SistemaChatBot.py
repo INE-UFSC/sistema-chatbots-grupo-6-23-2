@@ -1,5 +1,6 @@
 from Bots.Bot import Bot
 from Bots.BotNews import BotNews
+from DAO.BotDao import BotDao
 
 class SistemaChatBot:
 
@@ -7,6 +8,9 @@ class SistemaChatBot:
         self.__empresa = nomeEmpresa
         self.__lista_bots = []
         self.__selected_bot = None
+        self.__data = BotDao()
+        self.add_bot(BotNews("Bernardo Nogueira"))
+        self.load_bot_texto()
     
     def boas_vindas(self):
         return f"Seja bem vindo ao Sistema de chatbots da {self.empresa}"
@@ -26,6 +30,10 @@ class SistemaChatBot:
     @property
     def selected_bot(self):
         return self.__selected_bot
+    
+    def load_bot_texto(self):
+        for bot in self.__data.get_all():
+            self.add_bot(bot)
     
     def add_bot(self, bot: Bot):
         if isinstance(bot, Bot):

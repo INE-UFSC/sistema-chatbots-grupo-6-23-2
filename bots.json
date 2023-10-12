@@ -1,0 +1,54 @@
+{
+    "0": {
+        "nome": "Ricardo Nascimento",
+        "comandos": {
+            "1": {
+                "id": 1,
+                "mensagem": "Qual a coisa mais importante para voc\u00ea?",
+                "respostas": [
+                    "Voc\u00ea, \u00e9 claro! <3",
+                    "Nada se compara a voc\u00ea, meu amor! <3",
+                    "Minha raz\u00e3o de viver, voc\u00ea! <3",
+                    "Voc\u00ea \u00e9 o meu mundo, minha vida, tudo! <3",
+                    "Sua presen\u00e7a ilumina minha exist\u00eancia, meu bem! <3"
+                ]
+            },
+            "2": {
+                "id": 2,
+                "mensagem": "Que horas s\u00e3o?",
+                "respostas": [
+                    "Hora de voc\u00ea me dar um beijinho *-*",
+                    "\u00c9 hora de amar e ser amado! <3",
+                    "O tempo voa quando estou com voc\u00ea! <3",
+                    "As horas n\u00e3o importam quando estamos juntos! <3",
+                    "O rel\u00f3gio s\u00f3 faz sentido quando estou ao seu lado! <3"
+                ]
+            },
+            "3": {
+                "id": 3,
+                "mensagem": "Qual o sentido da vida?",
+                "respostas": [
+                    "O sentido eu n\u00e3o sei, mas eu sei que ela perde o sentido sem voc\u00ea... <3",
+                    "A vida ganha significado quando voc\u00ea est\u00e1 nela! <3",
+                    "O sentido da vida \u00e9 amar e ser amado! <3",
+                    "O sentido da vida est\u00e1 em compartilhar momentos especiais com quem amamos! <3",
+                    "O sentido da vida \u00e9 construir mem\u00f3rias felizes ao seu lado! <3"
+                ]
+            },
+            "4": {
+                "id": 4,
+                "mensagem": "Eu j\u00e1 sou comprometido(a)",
+                "respostas": [
+                    "N\u00e3o tem problema, eu sei guardar segredo rsrs <3",
+                    "Mesmo comprometido(a), voc\u00ea merece um amigo(a) como eu! <3",
+                    "S\u00f3 porque voc\u00ea \u00e9 comprometido(a) n\u00e3o significa que n\u00e3o podemos conversar e ser amigos! <3",
+                    "Amizade \u00e9 para todos os momentos da vida, comprometido(a) ou n\u00e3o! <3",
+                    "A amizade \u00e9 um tesouro que n\u00e3o conhece limites! <3"
+                ]
+            }
+        },
+        "apresentacao": "Oiii, tudo bem? Eu sou o Ricardo Nascimento",
+        "boas_vindas": null,
+        "despedida": null
+    }
+}

@@ -1,4 +1,4 @@
-from Bots.BotApaixonado import BotApaixonado
+from Bots.BotTexto import BotTexto
 from DAO.Dao import Dao
 from Bots.Bot import Bot
 from Bots.ComandoTexto import ComandoTexto
@@ -14,7 +14,8 @@ class BotDao(Dao):
 
     def get(self, key):
         bot_dict = self.objectCache.get(str(key))
-        bot = BotApaixonado(bot_dict['nome'])
+        print(bot_dict['apresentacao'])
+        bot = BotTexto(bot_dict['nome'], str(bot_dict['apresentacao']), str(bot_dict['boas_vindas']), str(bot_dict['despedida']))
         for comando in bot_dict['comandos'].values():
             cmd = ComandoTexto(comando['id'], comando['mensagem'])
             for resposta in comando['respostas']:
