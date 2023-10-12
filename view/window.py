@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
 from textwrap import wrap
-import queue
 
 
 class Window:

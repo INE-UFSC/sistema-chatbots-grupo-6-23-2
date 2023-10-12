@@ -1,9 +1,9 @@
-import time
 import PySimpleGUI as sg
 from SistemaChatBot.SistemaChatBot import SistemaChatBot
 from Bots.BotApaixonado import *
 from Bots.BotNews import *
 from view.window import Window
+from datetime import datetime
 
 
 class Controlador:
@@ -58,7 +58,9 @@ class Controlador:
         self.__view.habilitar_troca_bot()
 
     def _bot_responde(self, resposta: dict):
-        if len(resposta) > 1: #Lógica implicia (se tiver mais de uma resposta é porque é do tipo botnews) ALTERAR!!
-            self.__view.add_message_bot(resposta[0]['titulo'])
+        if 'resposta_texto' in resposta:
+            self.__view.add_message_bot(resposta["resposta_texto"])
         else:
-            self.__view.add_message_bot(resposta["resposta"])
+            for noticia in resposta.values():
+                self.__view.add_message_bot(f'{noticia["titulo"]} | {datetime.strptime(noticia["data"], "%Y-%m-%dT%H:%M:%SZ").strftime("%d/%m/%Y")}')
+            
