@@ -25,6 +25,8 @@ class Window:
         self._add_row_center(self._message_bot_box("Por favor, escolha o bot:"))
         for i, bot in enumerate(lista_bots):
             self._add_row_center(self._message_bot_box(f"{i} - Bot: {bot.nome}\nMensagem de apresentação: {bot.apresentacao()}"))
+        self.window['input'].set_size((55, 1))
+        self.window["-SWAP-BUTTON-"].update(visible=False)
 
 
     @property
